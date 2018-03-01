@@ -1,0 +1,46 @@
+
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <img ion-right src="assets/imgs/forev-logo.jpg" class="navbarLogo" />
+        <ion-title>Siparis</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-toolbar color="dark">
+        <ion-searchbar placeholder="Arama"  [(ngModel)]="queryText" (ionInput)="search()">
+
+        </ion-searchbar>
+    </ion-toolbar>
+
+    <ion-list>
+        <ion-item>
+            <ion-label color="dark" style="padding-left:10px; font-size:18px;font-weight:bold">Firma Secmek icin Tikla</ion-label>
+            <ion-select [(ngModel)]="secilenKategori" (ionChange)="kat()">
+                <ion-option value="">Tum Firmalar</ion-option>
+                <ion-option *ngFor="let firma of kategori" value="{{firma.firma_kodu}}">
+                    {{firma.firma_adi}}
+                </ion-option>
+            </ion-select>
+           
+        </ion-item>
+       <hr>
+
+        <ion-list>
+            <button ion-item *ngFor="let urun of dataSet" (click)="itemTapped($event,urun)">
+             <div> {{urun.firma_kodu}}-{{urun.stok_adi}}
+                 </div> 
+                <div item-right>
+                    {{urun.stok_kodu}}
+                </div>
+            </button>
+        </ion-list>
+
+
+
+    </ion-list>
+</ion-content>

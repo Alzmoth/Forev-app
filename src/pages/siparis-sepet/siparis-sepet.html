@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Siparis Sepeti</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card padding>
+
+    <span>
+      Toplam Urun Adedi: {{this.toplam.toplam_urun_adet}}
+
+    </span>
+    <span>
+      <p>
+        Urunler Toplami (KDV Dahil):
+        <strong> {{this.toplam.toplam_fiyat | number}} TL</strong>
+      </p>
+
+    </span>
+
+
+
+
+
+  </ion-card>
+
+
+
+  <ion-input style="border-style: groove" *ngIf="siparisepetUrun.length!=0" type="text" [(ngModel)]="stok_fatura.aciklama"
+    placeholder="Açıklama :" clearInput></ion-input>
+
+
+
+  <ion-list *ngFor="let item of siparisepetUrun">
+
+    <ion-item>
+
+
+      <ion-label>
+        Urun Adı: {{item.urun.stok_adi}}
+        <p>Urun Kodu:
+          <b>{{item.urun.stok_kodu}} </b>
+        </p>
+
+        <div>Fiyat:
+          <strong>{{item.urun.urun_adet}} * {{ (item.urun.kdv_dahil_satis_fiyat)-((item.urun.kdv_dahil_satis_fiyat/100)*item.urun.sabit_iskonto
+            ) | number }} = {{item.urun.urun_adet * (item.urun.kdv_dahil_satis_fiyat-((item.urun.kdv_dahil_satis_fiyat/100)*item.urun.sabit_iskonto
+            )) | number }} TL</strong>
+        </div>
+
+
+        <ion-row>
+          <ion-col col-6>
+            <ion-item>
+              <ion-label floating>Ad</ion-label>
+              <ion-input [(ngModel)]="item.urun.urun_adet" type="number" clearInput></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item>
+              <ion-label floating>İskonto:</ion-label>
+              <ion-input [(ngModel)]="item.urun.sabit_iskonto" type="number" max={{item.urun.max_iskonto}} clearInput></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      </ion-label>
+
+
+    </ion-item>
+
+
+  </ion-list>
+  <ion-label *ngIf="siparisepetUrun.length==0">
+    <h1>Liste Bos </h1>
+  </ion-label>
+  <ion-row>
+    <ion-col col-3>
+      <button *ngIf="siparisepetUrun.length!=0" ion-button block color="primary" (click)="sil()">Sil</button>
+      
+    </ion-col>
+        <ion-col col-3>
+      <button *ngIf="siparisepetUrun.length!=0" ion-button block color="primary" (click)="guncelle()">Guncelle</button>
+    
+    </ion-col>
+    <ion-col col-6>
+      <button *ngIf="siparisepetUrun.length!=0" ion-button block color="primary" (click)="kaydet()">Kaydet</button>
+
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>
